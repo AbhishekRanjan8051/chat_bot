@@ -1,10 +1,23 @@
 import ChatBot from "react-simple-chatbot";
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import Posts from "./Post";
-import chat from  "../chat.png";
+import chat from "../chat.png";
+import { ThemeProvider } from "styled-components";
 
 export default function ChatBotMain() {
   const [val, setVal] = useState(false);
+  const theme = {
+    background: "white",
+    fontFamily: "Arial, Helvetica, sans-serif",
+    headerBgColor: "#1d4696",
+    headerFontColor: "#fff",
+    headerFontSize: "25px",
+    botBubbleColor: "#1d4696",
+    botFontColor: "#fff",
+    userBubbleColor: "#fff",
+    userFontColor: "#4c4c4c",
+  };
+
   const steps = [
     {
       id: "1",
@@ -30,27 +43,35 @@ export default function ChatBotMain() {
     {
       id: "product_generic",
       user: true,
-      trigger: "over",
+      trigger: "thinkmore",
     },
     {
       id: "branded_generic",
       user: true,
-      trigger: "over",
+      trigger: "thinkmore",
     },
     {
       id: "product",
       user: true,
-      trigger: "over",
+      trigger: "thinkmore",
     },
     {
       id: "task",
       user: true,
-      trigger: "over",
+      trigger: "thinkmore",
+    },
+    {
+      id: "thinkmore",
+      options: [
+        { value: 1, label: "Go back", trigger: "2" },
+        { value: 2, label: "End Chat", trigger: "over" },
+      ],
+      // trigger: "3",
     },
     { id: "over", component: <Posts />, asMessage: true, end: true },
     // {
     //   id: "over",
-    //   component: <Posts />,
+    //   // component: <Posts />,
     //   asMessage: true,
     //   options: [{ value: 0, label: "back", trigger: "1cdcd" }],
     //   end: true,
@@ -61,7 +82,9 @@ export default function ChatBotMain() {
       <div style={{ position: "fixed", bottom: 0, right: 0, zIndex: 1000 }}>
         {val == true ? (
           <>
-            <ChatBot steps={steps} />
+            <ThemeProvider theme={theme}>
+              <ChatBot steps={steps} />
+            </ThemeProvider>
           </>
         ) : null}
         <button
